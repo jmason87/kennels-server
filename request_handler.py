@@ -1,13 +1,16 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from animals import get_all_animals, get_single_animal
-
-
+from views import get_all_animals, get_single_animal, get_all_locations, get_single_location
+from views import get_all_employees, get_single_employee, get_all_customers, get_single_customer
 
 # Here's a class. It inherits from another class.
 # For now, think of a class as a container for functions that
 # work together for a common purpose. In this case, that
 # common purpose is to respond to HTTP requests from a client.
 class HandleRequests(BaseHTTPRequestHandler):
+    # This is a Docstring it should be at the beginning of all classes and functions
+    # It gives a description of the class or function
+    """Controls the functionality of any GET, PUT, POST, DELETE requests to the server
+    """
     def parse_url(self, path):
         # Just like splitting a string in JavaScript. If the
         # path is "/animals/1", the resulting list will
@@ -28,17 +31,12 @@ class HandleRequests(BaseHTTPRequestHandler):
             pass  # Request had trailing slash: /animals/
 
         return (resource, id)  # This is a tuple
-    # This is a Docstring it should be at the beginning of all classes and functions
-    # It gives a description of the class or function
-    """Controls the functionality of any GET, PUT, POST, DELETE requests to the server
-    """
 
     # Here's a class function
     def _set_headers(self, status):
         # Notice this Docstring also includes information about the arguments passed to the function
         """Sets the status code, Content-Type and Access-Control-Allow-Origin
         headers on the response
-
         Args:
             status (number): the status code to return to the front end
         """
@@ -72,6 +70,25 @@ class HandleRequests(BaseHTTPRequestHandler):
 
             else:
                 response = f"{get_all_animals()}"
+        if resource == "locations":
+            if id is not None:
+                response = f"{get_single_location(id)}"
+
+            else:
+                response = f"{get_all_locations()}"
+        if resource == "employees":
+            if id is not None:
+                response = f"{get_single_employee(id)}"
+
+            else:
+                response = f"{get_all_employees()}"
+        if resource == "customers":
+            if id is not None:
+                response = f"{get_single_customer(id)}"
+
+            else:
+                response = f"{get_all_customers()}"
+
 
         self.wfile.write(response.encode())
     # Here's a method on the class that overrides the parent's method.
@@ -108,3 +125,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
