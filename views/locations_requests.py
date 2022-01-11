@@ -10,11 +10,12 @@ LOCATIONS = [
 ]
 
 def get_all_locations():
+    """returns LOCATIONS list"""
     return LOCATIONS
 
 # Function with a single parameter
 def get_single_location(id):
-    # Variable to hold the found animal, if it exists
+    """# Variable to hold the found animal, if it exists"""
     requested_location = None
 
     # Iterate the ANIMALS list above. Very similar to the
@@ -28,7 +29,7 @@ def get_single_location(id):
     return requested_location
 
 def create_location(location):
-    # Get the id value of the last animal in the list
+    """# Get the id value of the last animal in the list"""
     max_id = LOCATIONS[-1]["id"]
 
     # Add 1 to whatever that number is
@@ -44,7 +45,7 @@ def create_location(location):
     return location
 
 def delete_location(id):
-    # Initial -1 value for animal index, in case one isn't found
+    """# Initial -1 value for animal index, in case one isn't found"""
     location_index = -1
 
     # Iterate the ANIMALS list, but use enumerate() so that you

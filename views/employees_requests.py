@@ -63,11 +63,12 @@ EMPLOYEES = [
 
 
 def get_all_employees():
+    """returns EMPLOYEES list"""
     return EMPLOYEES
 
 # Function with a single parameter
 def get_single_employee(id):
-    # Variable to hold the found animal, if it exists
+    """# Variable to hold the found animal, if it exists"""
     requested_employee = None
 
     # Iterate the ANIMALS list above. Very similar to the
@@ -81,7 +82,7 @@ def get_single_employee(id):
     return requested_employee
 
 def create_employee(employee):
-    # Get the id value of the last animal in the list
+    """# Get the id value of the last animal in the list"""
     max_id = EMPLOYEES[-1]["id"]
 
     # Add 1 to whatever that number is
@@ -95,9 +96,9 @@ def create_employee(employee):
 
     # Return the dictionary with `id` property added
     return employee
-  
+
 def delete_employee(id):
-    # Initial -1 value for animal index, in case one isn't found
+    """# Initial -1 value for animal index, in case one isn't found"""
     employee_index = -1
 
     # Iterate the ANIMALS list, but use enumerate() so that you

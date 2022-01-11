@@ -37,11 +37,12 @@ CUSTOMERS = [
 ]
 
 def get_all_customers():
+    """returns CUSTOMERS list"""
     return CUSTOMERS
 
 # Function with a single parameter
 def get_single_customer(id):
-    # Variable to hold the found animal, if it exists
+    """# Variable to hold the found animal, if it exists"""
     requested_customer = None
 
     # Iterate the ANIMALS list above. Very similar to the
@@ -55,7 +56,7 @@ def get_single_customer(id):
     return requested_customer
 
 def create_customer(customer):
-    # Get the id value of the last animal in the list
+    """# Get the id value of the last animal in the list"""
     max_id = CUSTOMERS[-1]["id"]
 
     # Add 1 to whatever that number is
@@ -71,7 +72,7 @@ def create_customer(customer):
     return customer
 
 def delete_customer(id):
-    # Initial -1 value for animal index, in case one isn't found
+    """# Initial -1 value for animal index, in case one isn't found"""
     customer_index = -1
 
     # Iterate the ANIMALS list, but use enumerate() so that you

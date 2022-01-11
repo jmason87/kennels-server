@@ -24,11 +24,12 @@ ANIMALS = [
 
 
 def get_all_animals():
+    """ returns ANIMALS list"""
     return ANIMALS
 
 # Function with a single parameter
 def get_single_animal(id):
-    # Variable to hold the found animal, if it exists
+    """# Variable to hold the found animal, if it exists"""
     requested_animal = None
 
     # Iterate the ANIMALS list above. Very similar to the
@@ -42,7 +43,7 @@ def get_single_animal(id):
     return requested_animal
 
 def create_animal(animal):
-    # Get the id value of the last animal in the list
+    """# Get the id value of the last animal in the list"""
     max_id = ANIMALS[-1]["id"]
 
     # Add 1 to whatever that number is
@@ -58,7 +59,7 @@ def create_animal(animal):
     return animal
 
 def delete_animal(id):
-    # Initial -1 value for animal index, in case one isn't found
+    """# Initial -1 value for animal index, in case one isn't found"""
     animal_index = -1
 
     # Iterate the ANIMALS list, but use enumerate() so that you
