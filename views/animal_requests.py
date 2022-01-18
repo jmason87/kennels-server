@@ -90,8 +90,8 @@ def get_single_animal(id):
             a.name,
             a.breed,
             a.status,
-            a.location_id,
-            a.customer_id
+            a.customer_id,
+            a.location_id
         FROM animal a
         WHERE a.id = ?
         """, ( id, ))
@@ -101,8 +101,8 @@ def get_single_animal(id):
 
         # Create an animal instance from the current row
         animal = Animal(data['id'], data['name'], data['breed'],
-                            data['status'], data['location_id'],
-                            data['customer_id'])
+                            data['status'], data['customer_id'],
+                            data['location_id'])
 
         return json.dumps(animal.__dict__)
 
@@ -132,14 +132,32 @@ def delete_animal(id):
         """, (id, ))
 
 def update_animal(id, new_animal):
-    """function for PUT request"""
-    # Iterate the ANIMALS list, but use enumerate() so that
-    # you can access the index value of each item.
-    for index, animal in enumerate(ANIMALS):
-        if animal["id"] == id:
-            # Found the animal. Update the value.
-            ANIMALS[index] = new_animal
-            break
+    with sqlite3.connect("./kennel.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        UPDATE Animal
+            SET
+                name = ?,
+                breed = ?,
+                status = ?,
+                location_id = ?,
+                customer_id = ?
+        WHERE id = ?
+        """, (new_animal['name'], new_animal['breed'],
+              new_animal['status'], new_animal['location_id'],
+              new_animal['customer_id'], id, ))
+
+        # Were any rows affected?
+        # Did the client send an `id` that exists?
+        rows_affected = db_cursor.rowcount
+
+    if rows_affected == 0:
+        # Forces 404 response by main module
+        return False
+    else:
+        # Forces 204 response by main module
+        return True
 
 def get_animals_by_locId(location_id):
     with sqlite3.connect("./kennel.sqlite3") as conn:
