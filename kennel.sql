@@ -121,3 +121,20 @@ SELECT
 FROM Employee e
 JOIN Location l
 	ON l.id = e.location_id
+
+SELECT
+	a.id,
+	a.name,
+	a.breed,
+	a.status,
+	a.location_id,
+	a.customer_id,
+	l.name location_name,
+	l.address location_address,
+	c.name customer_name,
+	c.address customer_address
+FROM Animal a
+LEFT JOIN Location l
+	ON l.id = a.location_id
+JOIN Customer c
+	ON c.id = a.customer_id
