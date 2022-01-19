@@ -124,8 +124,7 @@ def get_single_employee(id):
             e.id,
             e.name,
             e.address,
-            e.location_id,
-            e.password
+            e.location_id
         FROM employee e
         WHERE e.id = ?
         """, ( id, ))
@@ -204,3 +203,19 @@ def get_emp_by_locId(location_id):
             employees.append(employee.__dict__)
 
     return json.dumps(employees)
+
+def save_employee(saved_employee):
+    with sqlite3.connect("./kennel.sqlite3")as conn:
+      conn.row_factory = sqlite3.Row
+      db_cursor = conn.cursor()
+      
+      db_cursor.execute("""
+      INSERT INTO Employee
+          ( name, address, location_id )
+      VALUES
+          ( ?, ?, ?);
+      """, (saved_employee['name'], saved_employee['address'], saved_employee['location_id'], ))
+      
+      id = db_cursor.lastrowid
+      saved_employee['id'] = id
+    return json.dumps(saved_employee)

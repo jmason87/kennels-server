@@ -6,7 +6,7 @@ from views import create_animal, create_location, create_employee, create_custom
 from views import delete_animal, delete_customer, delete_location, delete_employee
 from views import update_animal, update_customer, update_employee, update_location
 from views import get_customers_by_email, get_animals_by_locId, get_emp_by_locId, get_animals_by_status
-
+from views import save_employee
 # Here's a class. It inherits from another class.
 # For now, think of a class as a container for functions that
 # work together for a common purpose. In this case, that
@@ -144,6 +144,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         new_location = None
         new_employee = None
         new_customer = None
+        saved_employee = None
 
         # Add a new animal to the list. Don't worry about
         # the orange squiggle, you'll define the create_animal
@@ -154,12 +155,16 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == "locations":
             new_animal = create_location(post_body)
             self.wfile.write(f"{new_location}".encode())
-        if resource == "employees":
-            new_animal = create_employee(post_body)
-            self.wfile.write(f"{new_employee}".encode())
+        # if resource == "employees":
+        #     new_animal = create_employee(post_body)
+        #     self.wfile.write(f"{new_employee}".encode())
         if resource == "customers":
             new_animal = create_customer(post_body)
             self.wfile.write(f"{new_customer}".encode())
+        if resource == "employees":
+            saved_employee = save_employee(post_body)
+            self.wfile.write(f"{saved_employee}".encode())
+
         # Encode the new animal and send in response
 
     def do_PUT(self):
